@@ -1,0 +1,64 @@
+server:
+  port: 8881
+  tomcat:
+    additional-tld-skip-patterns: "*.jar" #구동 시 Failed to scan orai18n-mapping.jar from classloader hirarchy 경고 문제로 인해 톰캣의 scan skip
+
+templates:
+  velocity-path: templates/velocity/
+
+spring:
+  database:
+    replace: NONE #테스트 끝나며 자동 롤백
+
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  jpa:
+    open-in-view: false #OSIV는 성능 및 확장성 측면에서 안좋다.
+    properties:
+      hibernate:
+        show_sql: true
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        format_sql: true
+        use_sql_comments: true
+
+
+logging:
+  level:
+    org.hibernate.sql: debug
+---
+#DataSource local
+spring:
+  config:
+    activate:
+      on-profile:
+        - local
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/enuridb_dev?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: 0863
+#    hikari:
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+#      jdbc-url: jdbc:mysql://localhost:3306/enuridb_dev?serverTimezone=UTC&characterEncoding=UTF-8
+#      username: root
+#      password: 0863
+#      maximum-pool-size: 10
+#      minimum-idle: 10
+#      connection-timeout: 30000
+#      max-lifetime: 1800000
+---
+#DataSource prod
+spring:
+  config:
+    activate:
+      on-profile:
+        - prod
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/enuridb?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: 0863
