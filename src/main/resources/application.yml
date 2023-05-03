@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
 #    url: jdbc:h2:tcp://localhost/~/enuridb
-    url: jdbc:h2:tcp://localhost:1521/enuriShop
+    url: jdbc:h2:tcp://172.17.0.2:1521/enuriShop
     username: sa
     password:
     driver-class-name: org.h2.Driver
