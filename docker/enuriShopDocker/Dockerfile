@@ -1,5 +1,7 @@
-FROM openjdk:11
-WORKDIR /home/user
-ARG JAR_FILE=C:/Users/USER/IdeaProjects/enuriShop/build/libs/enuriShop-0.0.1-SNAPSHOT.jar
-COPY ${JAR_FILE} myboot.jar
-ENTRYPOINT ["java","-jar","/myboot.jar"]
+FROM openjdk:11-jdk
+RUN mkdir -p jar
+WORKDIR /jar
+ARG JAR_FILE=..\build\libs\*.jar
+#VOLUME /tmp
+COPY ${JAR_FILE} /jar/myboot.jar
+ENTRYPOINT ["java","-jar","/jar/myboot.jar"]
